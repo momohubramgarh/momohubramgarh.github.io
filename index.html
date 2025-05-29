@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MomoHub Menu</title>
+  <link rel="icon" type="image/svg+xml" href="/img/original/c7e50bf1-083e-44dd-9a93-b413260a2cbd.webp" />
+  <style>
+    :root {
+      --primary: #f7931e;
+      --dark: #000;
+      --light: #fffaf4;
+      --accent: #fff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--light);
+      color: #333;
+    }
+
+    /* Loader */
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: var(--dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #loader img {
+      width: 150px;
+      animation: pulse 1.5s ease-in-out;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.8); opacity: 0.5; }
+      50% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(1); opacity: 0; }
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    header img {
+      height: 40px;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h2 {
+      color: var(--primary);
+      margin-top: 40px;
+      margin-bottom: 10px;
+      font-size: 22px;
+      border-bottom: 2px solid #ffe3c0;
+      padding-bottom: 5px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .menu-item {
+      display: flex;
+      flex-direction: column;
+      background: var(--accent);
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      margin-bottom: 20px;
+      transition: transform 0.2s ease;
+    }
+
+    .menu-item:hover {
+      transform: scale(1.01);
+    }
+
+    .menu-item img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: 18px;
+      margin: 5px 0;
+    }
+
+    .description {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .likes {
+      display: flex;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .likes button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--primary);
+      margin-right: 5px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      border-radius: 12px;
+      margin-top: 40px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      background: var(--dark);
+      color: #fff;
+    }
+
+    @media (min-width: 600px) {
+      .menu-item {
+        flex-direction: row;
+        gap: 20px;
+      }
+
+      .menu-item img {
+        width: 200px;
+        height: 150px;
+      }
+
+      .menu-text {
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Logo Loader -->
+<div id="loader">
+  <img src="/img/original/c7e50bf1-083e-44dd-9a93-b413260a2cbd.webp" alt="MomoHub">
+</div>
+
+<header>
+  <img src="/img/original/c7e50bf1-083e-44dd-9a93-b413260a2cbd.webp" alt="MomoHub Logo">
+</header>
+
+<div class="container" id="menu"></div>
+
+<!-- Embedded Map -->
+<iframe 
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4536.30260436656!2d85.5224866!3d23.6151537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f4f51e591ac96f%3A0x2f4f86daae79dbc1!2sMomo%20Hub!5e1!3m2!1sen!2sin!4v1748341994347!5m2!1sen!2sin" 
+  allowfullscreen 
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade"
+></iframe>
+
+<footer>
+  Made with 🤍 by MomoHub &copy; 2025
+</footer>
+
+<script>
+  window.addEventListener("load", () => {
+    setTimeout(() => document.getElementById("loader").style.display = "none", 1500);
+  });
+
+  const sections = {
+    "Virgin Steamed Momos 💋": [
+      { name: "Veg Steamed", emoji: "🥦🥕🌽", desc: "The kind of virgin you do wanna bite.", price: "Full: ₹60 Half: ₹30", img: "img\medium\steamed.webp" },
+      { name: "Paneer Steamed", emoji: "🧀🔥😉", desc: "Soft, steamy paneer—pure creamy temptation.", price: "Full: ₹100", img: "https://via.placeholder.com/300x200?text=Paneer+Steamed" },
+      { name: "Chicken Steamed", emoji: "🍗🔥😉", desc: "Steamy, juicy chicken—pure mouthwatering tease.", price: "Full: ₹100", img: "https://via.placeholder.com/300x200?text=Chicken+Steamed" }
+    ],
+    "Hardcore Crispy 🔥": [
+      { name: "Veg Crispy", emoji: "🥦🔥😋", desc: "Crunchy, fresh, and packed with veggie power!", price: "Full: ₹110", img: "https://via.placeholder.com/300x200?text=Veg+Crispy" },
+      { name: "Paneer Crispy", emoji: "🧀🔥😏", desc: "Golden, crunchy paneer—totally irresistible!", price: "Full: ₹170", img: "https://via.placeholder.com/300x200?text=Paneer+Crispy" },
+      { name: "Chicken Crispy", emoji: "🍗🔥😈", desc: "Crunchy, juicy chicken with a spicy kick!", price: "Full: ₹170", img: "https://via.placeholder.com/300x200?text=Chicken+Crispy" }
+    ],
+    "Deep Throat Afghani 👅": [
+      { name: "Veg Afghani", emoji: "👅🔥", desc: "Creamy, bold Afghani flavor—veg that speaks spice!", price: "Full: ₹180", img: "https://via.placeholder.com/300x200?text=Veg+Afghani" },
+      { name: "Paneer Afghani", emoji: "🧀🔥👅", desc: "Creamy paneer with bold Afghani spices.", price: "Full: ₹220", img: "https://via.placeholder.com/300x200?text=Paneer+Afghani" },
+      { name: "Chicken Afghani", emoji: "🍗🔥👅", desc: "Juicy chicken bathed in Afghani spices.", price: "Full: ₹220", img: "https://via.placeholder.com/300x200?text=Chicken+Afghani" }
+    ],
+    "Foursome Platter 🌝": [
+      { name: "Veg Platter", emoji: "🥦🔥😉", desc: "Fresh, crunchy veggie vibes!", price: "₹80", img: "https://via.placeholder.com/300x200?text=Veg+Platter" },
+      { name: "Paneer Platter", emoji: "🧀🔥😉", desc: "Creamy, crispy, and full of paneer passion.", price: "₹100", img: "https://via.placeholder.com/300x200?text=Paneer+Platter" },
+      { name: "Chicken Platter", emoji: "🍗🔥😏", desc: "Spicy chicken platter that plays dirty.", price: "₹100", img: "https://via.placeholder.com/300x200?text=Chicken+Platter" }
+    ]
+  };
+
+  const menu = document.getElementById('menu');
+  let count = 0;
+
+  for (const section in sections) {
+    const sectionEl = document.createElement('div');
+    sectionEl.className = 'section';
+    sectionEl.innerHTML = `<h2>${section}</h2>`;
+    sections[section].forEach(item => {
+      sectionEl.innerHTML += `
+        <div class="menu-item">
+          <div class="menu-text">
+            <div class="title">${item.name} ${item.emoji}</div>
+            <div class="description">${item.desc}</div>
+            <div class="price">${item.price}</div>
+            <div class="likes">
+              <button onclick="likeItem(${count})">❤️</button>
+              <span id="like-count-${count}">0</span>
+            </div>
+          </div>
+          <img src="${item.img}" alt="${item.name}">
+        </div>
+      `;
+      count++;
+    });
+    menu.appendChild(sectionEl);
+  }
+
+  function likeItem(id) {
+    const span = document.getElementById(`like-count-${id}`);
+    span.textContent = parseInt(span.textContent) + 1;
+  }
+</script>
+
+</body>
+</html>
