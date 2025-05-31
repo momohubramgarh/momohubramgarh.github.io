@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MomoHub Menu</title>
+  <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/c7e50bf1-083e-44dd-9a93-b413260a2cbd.webp" />
+  <style>
+    :root {
+      --primary: #f7931e;
+      --dark: #000;
+      --light: #fffaf4;
+      --accent: #fff;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--light);
+      color: #333;
+    }
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: var(--dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    #loader img {
+      width: 150px;
+      animation: pulse 1.5s ease-in-out;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.8); opacity: 0.5; }
+      50% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(1); opacity: 0; }
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    header img {
+      height: 40px;
+    }
+    .container {
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h2 {
+      color: var(--primary);
+      margin-top: 40px;
+      margin-bottom: 10px;
+      font-size: 22px;
+      border-bottom: 2px solid #ffe3c0;
+      padding-bottom: 5px;
+    }
+    .menu-item {
+      display: flex;
+      flex-direction: column;
+      background: var(--accent);
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      margin-bottom: 20px;
+      transition: transform 0.2s ease;
+    }
+    .menu-item:hover {
+      transform: scale(1.01);
+    }
+    .menu-item img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+    .title {
+      font-weight: bold;
+      font-size: 18px;
+      margin: 5px 0;
+    }
+    .description {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .price {
+      font-size: 14px;
+      font-weight: bold;
+    }
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      border-radius: 12px;
+      margin-top: 40px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      background: var(--dark);
+      color: #fff;
+    }
+    @media (min-width: 600px) {
+      .menu-item {
+        flex-direction: row;
+        gap: 20px;
+      }
+      .menu-item img {
+        width: 200px;
+        height: 150px;
+      }
+      .menu-text {
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Logo Loader -->
+<div id="loader">
+  <img src="https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/c7e50bf1-083e-44dd-9a93-b413260a2cbd.webp" alt="MomoHub">
+</div>
+
+<header>
+  <img src="https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/c7e50bf1-083e-44dd-9a93-b413260a2cbd.webp" alt="MomoHub Logo">
+</header>
+
+<div class="container" id="menu"></div>
+
+<!-- Embedded Map -->
+<iframe 
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4536.30260436656!2d85.5224866!3d23.6151537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f4f51e591ac96f%3A0x2f4f86daae79dbc1!2sMomo%20Hub!5e1!3m2!1sen!2sin!4v1748341994347!5m2!1sen!2sin" 
+  allowfullscreen 
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade"
+></iframe>
+
+<footer>
+  Made with 🤍 by MomoHub &copy; 2025 <br />
+  📞 Phone: <a href="tel:+919123456789" style="color: #f7931e;">+91 72960 14768</a><br />
+  📸 Instagram: <a href="https://instagram.com/momo_hub_ramgarh" target="_blank" style="color: #f7931e;">@momo_hub_ramgarh</a>
+</footer>
+
+
+<script>
+  window.addEventListener("load", () => {
+    setTimeout(() => document.getElementById("loader").style.display = "none", 1500);
+  });
+
+  const sections = {
+    "Virgin Steamed Momos 💋": [
+      { name: "Veg Steamed", emoji: "🥦🥕🌽", desc: "The kind of virgin you do wanna bite.", price: "Half: ₹30 Full: ₹60", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/steamed.webp" },
+      { name: "Paneer Steamed", emoji: "🧀🔥😉", desc: "Soft, steamy paneer—pure creamy temptation.", price: "Half: ₹50 Full: ₹100", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/steamed.webp" },
+      { name: "Chicken Steamed", emoji: "🍗🔥😉", desc: "Steamy, juicy chicken—pure mouthwatering tease.", price: "Half: ₹50 Full: ₹100", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/steamed.webp" }
+    ],
+    "Hardcore Crispy 🔥": [
+      { name: "Veg Crispy", emoji: "🥦🔥😋", desc: "Crunchy, fresh, and packed with veggie power!", price: "Half: ₹60 Full: ₹110", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/crispy.webp" },
+      { name: "Paneer Crispy", emoji: "🧀🔥😏", desc: "Golden, crunchy paneer—totally irresistible!", price: "Half: ₹90 Full: ₹170", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/crispy.webp" },
+      { name: "Chicken Crispy", emoji: "🍗🔥😈", desc: "Crunchy, juicy chicken with a spicy kick!", price: "Half: ₹90 Full: ₹170", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/crispy.webp" }
+    ],
+    "Deep Throat Afghani 👅": [
+      { name: "Veg Afghani", emoji: "👅🔥", desc: "Creamy, bold Afghani flavor—veg that speaks spice!", price: "Half: ₹90 Full: ₹180", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/afgani.webp" },
+      { name: "Paneer Afghani", emoji: "🧀🔥👅", desc: "Creamy paneer with bold Afghani spices.", price: "Half: ₹110 Full: ₹220", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/afgani.webp" },
+      { name: "Chicken Afghani", emoji: "🍗🔥👅", desc: "Juicy chicken bathed in Afghani spices.", price: "Half: ₹110 Full: ₹220", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/afgani.webp" }
+    ],
+    "Foursome Platter 🌝": [
+      { name: "Veg Platter", emoji: "🥦🧄🌶️", desc: "A spicy foursome of your veg favorites!", price: "₹80", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/platter.webp" },
+      { name: "Paneer Platter", emoji: "🧀🌶️🔥", desc: "For the ultimate paneer lover—4x the flavor!", price: "₹100", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/platter.webp" },
+      { name: "Chicken Platter", emoji: "🍗💣🔥", desc: "Bold chicken combo that hits all the right spots.", price: "₹100", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/platter.webp" }
+    ]
+  };
+
+  const menuContainer = document.getElementById("menu");
+
+  for (let section in sections) {
+    const sec = document.createElement("div");
+    sec.className = "section";
+    const h2 = document.createElement("h2");
+    h2.innerText = section;
+    sec.appendChild(h2);
+
+    sections[section].forEach(item => {
+      const itemDiv = document.createElement("div");
+      itemDiv.className = "menu-item";
+
+      const textDiv = document.createElement("div");
+      textDiv.className = "menu-text";
+      textDiv.innerHTML = `
+        <div class="title">${item.name} ${item.emoji}</div>
+        <div class="description">${item.desc}</div>
+        <div class="price">${item.price}</div>
+      `;
+
+      const img = document.createElement("img");
+      img.src = item.img;
+      img.alt = item.name;
+
+      itemDiv.appendChild(textDiv);
+      itemDiv.appendChild(img);
+      sec.appendChild(itemDiv);
+    });
+
+    menuContainer.appendChild(sec);
+  }
+</script>
+
+</body>
+</html>
