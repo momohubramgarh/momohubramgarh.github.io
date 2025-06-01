@@ -155,9 +155,12 @@
     function spinWheel() {
       const selected = getWeightedOption();
       const index = options.indexOf(selected);
+
       const degreesPerOption = 360 / options.length;
-      const stopAngle = (360 - index * degreesPerOption) + (360 * 10);
-      currentRotation = stopAngle + Math.random() * degreesPerOption;
+      const randomOffset = Math.random() * degreesPerOption;
+      const totalRotation = 360 * 10 + (index * degreesPerOption) + randomOffset;
+
+      currentRotation = totalRotation;
 
       canvas.style.transition = "transform 5s ease-out";
       canvas.style.transform = `rotate(${currentRotation}deg)`;
