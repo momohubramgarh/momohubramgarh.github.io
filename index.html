@@ -3,228 +3,451 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MomoHub Menu</title>
-  <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/c7e50bf1-083e-44dd-9a93-b413260a2cbd.webp" />
+  <title>Momo Hub - The Steamy Experience</title>
+  <link rel="icon" type="image/svg+xml" href="img/Logo.jpeg" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&family=Sniglet&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --primary: #f7931e;
-      --dark: #000;
-      --light: #fffaf4;
-      --accent: #fff;
+      --dough: #fffdf5;
+      --sauce: #ff4500; /* Fiery Red */
+      --chutney: #ff8c00; /* Orange */
+      --bamboo: #e3c08d;
+      --bamboo-dark: #c19a6b;
+      --dark-bg: #1a1a1a;
+      --steam: rgba(255, 255, 255, 0.4);
     }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: var(--light);
-      color: #333;
+      font-family: 'Fredoka', sans-serif;
+      background-color: var(--dark-bg);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 69, 0, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(255, 140, 0, 0.1) 0%, transparent 20%);
+      color: var(--dough);
+      overflow-x: hidden;
+      cursor: crosshair;
     }
+
+    /* --- STEAM ANIMATION --- */
+    .steam-container {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .steam-particle {
+      position: absolute; bottom: -100px;
+      background: radial-gradient(circle, var(--steam) 0%, transparent 70%);
+      border-radius: 50%; opacity: 0;
+      animation: rise 8s infinite ease-in;
+    }
+    @keyframes rise {
+      0% { transform: translateY(0) scale(1); opacity: 0; }
+      20% { opacity: 0.6; }
+      50% { transform: translateY(-40vh) scale(2); opacity: 0.4; }
+      100% { transform: translateY(-100vh) scale(3); opacity: 0; }
+    }
+
+    /* --- LOADER --- */
     #loader {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: var(--dark);
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: var(--dark-bg);
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
       z-index: 9999;
+      transition: opacity 0.5s ease-out;
     }
     #loader img {
-      width: 150px;
-      animation: pulse 1.5s ease-in-out;
+      width: 120px; 
+      animation: squish 0.8s infinite alternate ease-in-out;
+      /* Removed border-radius to keep logo shape original */
     }
-    @keyframes pulse {
-      0% { transform: scale(0.8); opacity: 0.5; }
-      50% { transform: scale(1.05); opacity: 1; }
-      100% { transform: scale(1); opacity: 0; }
+    @keyframes squish {
+      from { transform: scale(1, 1) translateY(0); }
+      to { transform: scale(1.1, 0.9) translateY(10px); }
     }
+
+    /* --- HEADER --- */
     header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(255, 255, 255, 0.95);
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(20, 20, 20, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 3px solid var(--sauce);
+      padding: 10px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 0 0 20px rgba(255, 69, 0, 0.5);
+    }
+    
+    .brand-logo img {
+      height: 55px; 
+      filter: drop-shadow(0 0 5px var(--chutney));
+      transition: transform 0.3s;
+      /* Removed border-radius: 50% here too */
+    }
+    .brand-logo img:hover { transform: rotate(-5deg) scale(1.1); }
+    
+    /* --- NAVIGATION --- */
+    .nav-container {
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      gap: 25px;
     }
-    header img {
-      height: 40px;
+
+    .nav-links {
+      display: flex; gap: 20px;
     }
-    .container {
-      padding: 20px;
-      max-width: 1000px;
-      margin: auto;
+    .nav-item {
+      color: var(--dough); text-decoration: none; font-weight: 600;
+      font-size: 1rem; position: relative; transition: 0.3s;
+      font-family: 'Sniglet', cursive; /* Used Sniglet for that friendly look you liked */
+      letter-spacing: 0.5px;
     }
-    h2 {
-      color: var(--primary);
-      margin-top: 40px;
-      margin-bottom: 10px;
-      font-size: 22px;
-      border-bottom: 2px solid #ffe3c0;
-      padding-bottom: 5px;
+    .nav-item:hover { color: var(--chutney); }
+    .nav-item::after {
+      content: ''; position: absolute; width: 0; height: 2px;
+      bottom: -4px; left: 0; background-color: var(--sauce);
+      transition: width 0.3s;
     }
-    .menu-item {
-      display: flex;
-      flex-direction: column;
-      background: var(--accent);
-      border-radius: 12px;
-      padding: 15px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-      margin-bottom: 20px;
-      transition: transform 0.2s ease;
-    }
-    .menu-item:hover {
-      transform: scale(1.01);
-    }
-    .menu-item img {
-      width: 100%;
-      max-height: 200px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-top: 10px;
-    }
-    .title {
-      font-weight: bold;
-      font-size: 18px;
-      margin: 5px 0;
-    }
-    .description {
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
-    .price {
-      font-size: 14px;
-      font-weight: bold;
-    }
-    iframe {
-      width: 100%;
-      height: 300px;
-      border: none;
-      border-radius: 12px;
-      margin-top: 40px;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-      background: var(--dark);
+    .nav-item:hover::after { width: 100%; }
+
+    /* Call Button Style */
+    .call-btn {
+      background: var(--sauce);
       color: #fff;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: flex; align-items: center; gap: 5px;
+      box-shadow: 0 4px 10px rgba(255, 69, 0, 0.3);
+      transition: 0.3s;
     }
-    @media (min-width: 600px) {
-      .menu-item {
-        flex-direction: row;
-        gap: 20px;
-      }
-      .menu-item img {
-        width: 200px;
-        height: 150px;
-      }
-      .menu-text {
-        flex: 1;
-      }
+    .call-btn:hover {
+      background: var(--chutney);
+      transform: translateY(-2px);
+    }
+
+    /* --- HERO --- */
+    .hero-banner {
+      text-align: center; padding: 60px 20px 20px;
+      position: relative; z-index: 1;
+    }
+    .hero-title {
+      font-family: 'Sniglet', cursive; font-size: 3rem; text-transform: uppercase;
+      background: linear-gradient(to bottom, #fff, #ff8c00);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      filter: drop-shadow(0 0 10px rgba(255,69,0,0.5));
+    }
+
+    /* --- REVIEWS SLIDER --- */
+    .reviews-wrapper {
+      margin: 30px auto; max-width: 1000px; overflow: hidden;
+      position: relative; z-index: 2;
+      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+    .reviews-track {
+      display: flex; gap: 20px;
+      animation: float-scroll 30s linear infinite; 
+      width: max-content;
+    }
+    .reviews-track:hover { animation-play-state: paused; }
+    
+    @keyframes float-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
+    .review-bubble {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 15px; border-radius: 20px;
+      width: 280px; flex-shrink: 0; color: #eee;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .user-head { display: flex; gap: 10px; align-items: center; margin-bottom: 8px; }
+    .user-pic { width: 35px; height: 35px; border-radius: 50%; border: 2px solid var(--chutney); }
+
+    /* --- MENU SECTION --- */
+    .steamer-section { max-width: 1100px; margin: 50px auto; position: relative; z-index: 2; }
+    
+    .steamer-lid {
+      background: repeating-linear-gradient(90deg, var(--bamboo), var(--bamboo) 10px, var(--bamboo-dark) 10px, var(--bamboo-dark) 12px);
+      padding: 15px; border-radius: 20px 20px 5px 5px; text-align: center;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5); position: relative; margin-bottom: -10px; z-index: 3;
+    }
+    .steamer-lid h2 {
+      background: #3e2723; color: #fff; display: inline-block; padding: 5px 20px;
+      border-radius: 50px; font-size: 1.5rem; border: 2px solid var(--bamboo);
+    }
+
+    .steamer-basket {
+      background: rgba(255, 255, 255, 0.05);
+      border: 8px solid var(--bamboo); border-top: none;
+      border-radius: 0 0 30px 30px; padding: 30px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px; box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+    }
+
+    /* --- CARDS --- */
+    .momo-card {
+      background: var(--dough); color: #333;
+      border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%; 
+      padding: 20px; text-align: center; position: relative;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .momo-card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 20px 40px rgba(255, 69, 0, 0.4);
+    }
+    .momo-img {
+      width: 140px; height: 140px; object-fit: cover; border-radius: 50%;
+      border: 4px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      margin-bottom: 10px; transition: transform 0.5s;
+    }
+    .momo-card:hover .momo-img { transform: rotate(15deg); }
+    .momo-title { font-size: 1.2rem; font-weight: 700; color: #333; margin-bottom: 5px; }
+    .momo-desc { font-size: 0.85rem; color: #666; margin-bottom: 15px; }
+    
+    .order-pill {
+      background: var(--sauce); color: white; text-decoration: none;
+      padding: 8px 25px; border-radius: 50px; font-weight: bold;
+      position: relative; overflow: hidden; transition: 0.3s;
+      box-shadow: 0 4px 10px rgba(255, 69, 0, 0.4);
+    }
+    .order-pill:hover { background: var(--chutney); padding: 8px 35px; }
+    .order-pill::after { content: '🔥'; position: absolute; right: 10px; opacity: 0; transition: 0.3s; }
+    .order-pill:hover::after { opacity: 1; right: 8px; }
+
+    /* --- MAP --- */
+    .map-frame {
+      border: 8px solid var(--bamboo); border-radius: 20px;
+      margin: 40px auto; width: 90%; max-width: 800px;
+      overflow: hidden; box-shadow: 0 0 30px rgba(255, 69, 0, 0.2);
+      position: relative; z-index: 2; background: #000;
+    }
+    iframe { width: 100%; height: 450px; border: 0; opacity: 0.9; }
+
+    /* --- FOOTER --- */
+    footer {
+      background: #111; padding: 40px 20px; text-align: center;
+      border-top: 4px solid var(--sauce); position: relative; z-index: 2;
+    }
+    .footer-links { margin: 20px 0; }
+    .footer-links a { color: #888; text-decoration: none; margin: 0 10px; font-size: 0.9rem; transition: 0.3s; }
+    .footer-links a:hover { color: var(--chutney); }
+    
+    .social-btn {
+      display: inline-block; background: var(--chutney); color: white;
+      padding: 10px 20px; border-radius: 50px; text-decoration: none;
+      font-weight: bold; box-shadow: 0 0 15px var(--chutney);
+    }
+
+    @media (max-width: 768px) {
+      .hero-title { font-size: 2rem; }
+      .nav-links { display: none; } 
+      .nav-container { margin-left: auto; } /* Keeps call button visible */
+      header { justify-content: space-between; }
     }
   </style>
 </head>
 <body>
 
-<!-- Logo Loader -->
+<div class="steam-container" id="steamArea"></div>
+
 <div id="loader">
-  <img src="https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/c7e50bf1-083e-44dd-9a93-b413260a2cbd.webp" alt="MomoHub">
+  <img src="img/Logo.jpeg" alt="Loading...">
+  <p style="color:var(--chutney); margin-top:10px; font-weight:bold;">Steaming up the Hub...</p>
 </div>
 
 <header>
-  <img src="https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/c7e50bf1-083e-44dd-9a93-b413260a2cbd.webp" alt="MomoHub Logo">
+  <div class="brand-logo">
+    <img src="img/Logo.jpeg" alt="Momo Hub">
+  </div>
+  
+  <div class="nav-container">
+    <nav class="nav-links">
+      <a href="about.html" class="nav-item">The Origin Story</a>
+      <a href="gallery.html" class="nav-item">Caught Eating</a>
+      <a href="menu.html" class="nav-item">Full Menu</a>
+    </nav>
+    <a href="tel:+917296014768" class="call-btn">📞 Call Us</a>
+  </div>
 </header>
 
-<div class="container" id="menu"></div>
+<div class="hero-banner">
+  <h1 class="hero-title">Ramgarh's <br>Spiciest Secret 🌶️</h1>
+  <p style="color: #ccc; margin-top: 10px;">Warning: Highly Addictive Taste</p>
+</div>
 
-<!-- Embedded Map -->
-<iframe 
-  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4536.30260436656!2d85.5224866!3d23.6151537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f4f51e591ac96f%3A0x2f4f86daae79dbc1!2sMomo%20Hub!5e1!3m2!1sen!2sin!4v1748341994347!5m2!1sen!2sin" 
-  allowfullscreen 
-  loading="lazy"
-  referrerpolicy="no-referrer-when-downgrade"
-></iframe>
+<div class="reviews-wrapper">
+  <div class="reviews-track" id="reviewTrack"></div>
+</div>
+
+<div id="menu"></div>
+
+<div class="map-frame">
+  <h2 style="text-align:center; color:var(--chutney); padding:10px; font-family:'Sniglet';">Find the Spot 📍</h2>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14622.757237091884!2d85.522443!3d23.615473!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f4f51e591ac96f%3A0x2f4f86daae79dbc1!2sMomo%20Hub!5e0!3m2!1sen!2sus!4v1766159086602!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
 
 <footer>
-  Made with 🤍 by MomoHub &copy; 2025 <br />
-  📞 Phone: <a href="tel:+919123456789" style="color: #f7931e;">+91 72960 14768</a><br />
-  📸 Instagram: <a href="https://instagram.com/momo_hub_ramgarh" target="_blank" style="color: #f7931e;">@momo_hub_ramgarh</a>
+  <h2 style="font-family:'Sniglet'; color:var(--chutney);">MOMO HUB</h2>
+  
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">The Origin Story</a>
+    <a href="gallery.html">Caught Eating</a>
+    <a href="privacy.html">Secret Recipe Policy</a>
+    <a href="404.html">Lost? (404)</a>
+  </div>
+
+  <p style="color:#888; margin: 10px 0; font-size: 0.9rem;">Near Block Chowk, Ramgarh Cantonment, Jharkhand, 829122</p>
+  <p style="color:#888; margin-bottom: 20px;">📞 +91 72960 14768</p>
+  
+  <a href="https://instagram.com/momo_hub_ramgarh" target="_blank" class="social-btn">📸 Stalk our Momos</a>
+  <p style="margin-top:20px; font-size:12px; color:#555;">© 2025 Momo Hub.</p>
 </footer>
 
-
 <script>
-  window.addEventListener("load", () => {
-    setTimeout(() => document.getElementById("loader").style.display = "none", 1500);
+  // ------------------------------------------------
+  // FIXED: Strict 3-Second Loader Timer
+  // ------------------------------------------------
+  document.addEventListener("DOMContentLoaded", () => {
+    createSteam();
+    setTimeout(() => {
+      const loader = document.getElementById("loader");
+      if (loader) {
+        loader.style.opacity = "0"; 
+        setTimeout(() => {
+          loader.style.display = "none";
+        }, 500); 
+      }
+    }, 3000); 
   });
 
-  const sections = {
+  function createSteam() {
+    const container = document.getElementById('steamArea');
+    for(let i=0; i<15; i++) {
+      let span = document.createElement('span');
+      span.className = 'steam-particle';
+      span.style.left = Math.random() * 100 + '%';
+      span.style.width = Math.random() * 100 + 50 + 'px';
+      span.style.height = span.style.width;
+      span.style.animationDelay = Math.random() * 5 + 's';
+      span.style.animationDuration = Math.random() * 5 + 5 + 's';
+      container.appendChild(span);
+    }
+  }
+
+  // --- REVIEWS DATA ---
+  const reviews = [
+    { name: "Flexora", text: "Must try. Afgani Momos IS WOW", rating: 5, date: "1 day ago" },
+    { name: "ankur K.", text: "Best momos of my life", rating: 5, date: "2 months ago" },
+    { name: "Rahul S.", text: "Great taste and hygiene. Service is fast!", rating: 5, date: "1 week ago" },
+    { name: "Priya M.", text: "The crispy momos are so crunchy and spicy.", rating: 4, date: "3 weeks ago" },
+    { name: "Rohit V.", text: "Affordable prices and great taste.", rating: 5, date: "4 days ago" },
+    { name: "Sneha P.", text: "Finally found authentic momos in Ramgarh!", rating: 5, date: "Yesterday" },
+    { name: "Amit R.", text: "Spicy chutney is killer 🔥", rating: 5, date: "2 days ago" },
+    { name: "Vikram S.", text: "Paneer steam is very soft. Loved it.", rating: 4, date: "1 month ago" }
+  ];
+
+  const reviewTrack = document.getElementById("reviewTrack");
+  
+  function createReview(r) {
+    const img = `https://ui-avatars.com/api/?name=${r.name}&background=ff8c00&color=fff&size=64`;
+    return `
+      <div class="review-bubble">
+        <div class="user-head">
+          <img src="${img}" class="user-pic" alt="${r.name}">
+          <div>
+            <div style="font-weight:bold;">${r.name}</div>
+            <div style="font-size:10px; opacity:0.7;">${r.date}</div>
+          </div>
+        </div>
+        <div style="color:#FFC107;">${"★".repeat(r.rating)}</div>
+        <div style="font-size:13px; margin-top:5px;">"${r.text}"</div>
+      </div>
+    `;
+  }
+  
+  let reviewHTML = "";
+  reviews.forEach(r => reviewHTML += createReview(r));
+  reviews.forEach(r => reviewHTML += createReview(r)); 
+  reviews.forEach(r => reviewHTML += createReview(r)); 
+  reviewTrack.innerHTML = reviewHTML;
+
+  // --- MENU DATA (Using Local Images) ---
+  const menuData = {
     "Virgin Steamed Momos 💋": [
-      { name: "Veg Steamed", emoji: "🥦🥕🌽", desc: "The kind of virgin you do wanna bite.", price: "Half: ₹30 Full: ₹60", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/steamed.webp" },
-      { name: "Paneer Steamed", emoji: "🧀🔥😉", desc: "Soft, steamy paneer—pure creamy temptation.", price: "Half: ₹50 Full: ₹100", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/steamed.webp" },
-      { name: "Chicken Steamed", emoji: "🍗🔥😉", desc: "Steamy, juicy chicken—pure mouthwatering tease.", price: "Half: ₹50 Full: ₹100", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/steamed.webp" }
+      { name: "Veg Steamed", desc: "Classic steamed veggie delight.", price: "₹30 / ₹60", img: "img/steamed.jpeg" },
+      { name: "Paneer Steamed", desc: "Soft paneer filled happiness.", price: "₹50 / ₹100", img: "img/steamed.jpeg" },
+      { name: "Chicken Steamed", desc: "Juicy chicken dumplings.", price: "₹50 / ₹100", img: "img/steamed.jpeg" }
     ],
     "Hardcore Crispy Momos 🔥": [
-      { name: "Veg Crispy", emoji: "🥦🔥😋", desc: "Crunchy, fresh, and packed with veggie power!", price: "Half: ₹60 Full: ₹120", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/crispy.webp" },
-      { name: "Paneer Crispy", emoji: "🧀🔥😏", desc: "Golden, crunchy paneer—totally irresistible!", price: "Half: ₹90 Full: ₹180", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/crispy.webp" },
-      { name: "Chicken Crispy", emoji: "🍗🔥😈", desc: "Crunchy, juicy chicken with a spicy kick!", price: "Half: ₹90 Full: ₹180", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/crispy.webp" }
+      { name: "Veg Crispy", desc: "Fried to perfection.", price: "₹60 / ₹120", img: "img/crispy.jpeg" },
+      { name: "Paneer Crispy", desc: "Golden crunchy paneer.", price: "₹90 / ₹180", img: "img/crispy.jpeg" },
+      { name: "Chicken Crispy", desc: "Crispy outside, juicy inside.", price: "₹90 / ₹180", img: "img/crispy.jpeg" }
     ],
     "Deep Throat Afghani Momos 👅": [
-      { name: "Veg Afghani", emoji: "👅🔥", desc: "Creamy, bold Afghani flavor—veg that speaks spice!", price: "Half: ₹90 Full: ₹180", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/afgani.webp" },
-      { name: "Paneer Afghani", emoji: "🧀🔥👅", desc: "Creamy paneer with bold Afghani spices.", price: "Half: ₹110 Full: ₹220", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/afgani.webp" },
-      { name: "Chicken Afghani", emoji: "🍗🔥👅", desc: "Juicy chicken bathed in Afghani spices.", price: "Half: ₹110 Full: ₹220", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/afgani.webp" }
+      { name: "Veg Afghani", desc: "Rich creamy marinade.", price: "₹90 / ₹180", img: "img/afgani.jpeg" },
+      { name: "Paneer Afghani", desc: "Creamy paneer delight.", price: "₹110 / ₹220", img: "img/afgani.jpeg" },
+      { name: "Chicken Afghani", desc: "Smoky and creamy chicken.", price: "₹110 / ₹220", img: "img/afgani.jpeg" }
     ],
     "Foursome Platter Momos 🌝": [
-      { name: "Veg Platter", emoji: "🥦🧄🌶️", desc: "A spicy foursome of your veg favorites!", price: "₹80", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/platter.webp" },
-      { name: "Paneer Platter", emoji: "🧀🌶️🔥", desc: "For the ultimate paneer lover—4x the flavor!", price: "₹100", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/platter.webp" },
-      { name: "Chicken Platter", emoji: "🍗💣🔥", desc: "Bold chicken combo that hits all the right spots.", price: "₹100", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/platter.webp" }
+      { name: "Veg Platter", desc: "Mix of 4 best veg varieties.", price: "₹80", img: "img/platter.jpeg" },
+      { name: "Paneer Platter", desc: "Ultimate paneer combo.", price: "₹100", img: "img/platter.jpeg" },
+      { name: "Chicken Platter", desc: "Chicken lover's dream.", price: "₹100", img: "img/platter.jpeg" }
     ],
     "Chilli 69 Momos 🌶️": [
-      { name: "Veg Chilli", emoji: "🥦🔥😋", desc: "Loaded with spicy veggie magic, tossed in our secret 69 sauce – full crunch, full punch!", price: "Half: ₹60 Full: ₹120", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/NP9f99s5.jpeg" },
-      { name: "Paneer Chilli", emoji: "🧀🔥😏", desc: "Soft paneer meets bold heat - one bite and you'll say paneer aisa kabhi nahi chaka!", price: "Half: ₹90 Full: ₹180", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/NP9f99s5.jpeg" },
-      { name: "Chicken chilli", emoji: "🍗🔥😈", desc: "Juicy chicken dumplings drowned in fire-kissed masala – warning: zubaan jal jaayegi, dil maangega aur!", price: "Half: ₹90 Full: ₹180", img: "https://raw.githubusercontent.com/momohubramgarh/momohubramgarh.github.io/refs/heads/main/NP9f99s5.jpeg" }
+      { name: "Veg Chilli", desc: "Spicy tossed momos.", price: "₹60 / ₹120", img: "img/chilli.jpeg" },
+      { name: "Paneer Chilli", desc: "Spicy paneer goodness.", price: "₹90 / ₹180", img: "img/chilli.jpeg" },
+      { name: "Chicken Chilli", desc: "Fiery chicken dumplings.", price: "₹90 / ₹180", img: "img/chilli.jpeg" }
     ]
   };
 
   const menuContainer = document.getElementById("menu");
+  const zomatoLink = "https://zomato.onelink.me/xqzv/torbx1m9";
 
-  for (let section in sections) {
-    const sec = document.createElement("div");
-    sec.className = "section";
-    const h2 = document.createElement("h2");
-    h2.innerText = section;
-    sec.appendChild(h2);
+  for (let section in menuData) {
+    const steamerSec = document.createElement("div");
+    steamerSec.className = "steamer-section";
+    
+    const lid = document.createElement("div");
+    lid.className = "steamer-lid";
+    lid.innerHTML = `<h2>${section}</h2>`;
+    steamerSec.appendChild(lid);
 
-    sections[section].forEach(item => {
-      const itemDiv = document.createElement("div");
-      itemDiv.className = "menu-item";
+    const basket = document.createElement("div");
+    basket.className = "steamer-basket";
 
-      const textDiv = document.createElement("div");
-      textDiv.className = "menu-text";
-      textDiv.innerHTML = `
-        <div class="title">${item.name} ${item.emoji}</div>
-        <div class="description">${item.desc}</div>
-        <div class="price">${item.price}</div>
+    menuData[section].forEach(item => {
+      const card = document.createElement("div");
+      card.className = "momo-card";
+      card.innerHTML = `
+        <img src="${item.img}" class="momo-img" alt="${item.name}" onerror="this.src='https://placehold.co/140x140?text=No+Image';">
+        <div class="momo-title">${item.name}</div>
+        <div class="momo-desc">${item.desc}</div>
+        <div style="font-weight:bold; color:var(--sauce); margin-bottom:10px;">${item.price}</div>
+        <a href="${zomatoLink}" target="_blank" class="order-pill">Eat Me</a>
       `;
-
-      const img = document.createElement("img");
-      img.src = item.img;
-      img.alt = item.name;
-
-      itemDiv.appendChild(textDiv);
-      itemDiv.appendChild(img);
-      sec.appendChild(itemDiv);
+      basket.appendChild(card);
     });
 
-    menuContainer.appendChild(sec);
+    steamerSec.appendChild(basket);
+    menuContainer.appendChild(steamerSec);
   }
 </script>
 
 </body>
 </html>
-

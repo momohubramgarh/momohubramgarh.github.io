@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>404 - Empty Basket Error</title>
+  <link rel="icon" type="image/svg+xml" href="/img/Logo.jpeg" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&family=Sniglet&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --dough: #fffdf5;
+      --sauce: #ff4500;
+      --chutney: #ff8c00;
+      --dark-bg: #1a1a1a;
+      --steam: rgba(255, 255, 255, 0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Fredoka', sans-serif;
+      background-color: var(--dark-bg);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 69, 0, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(255, 140, 0, 0.1) 0%, transparent 20%);
+      color: var(--dough);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* --- STEAM ANIMATION --- */
+    .steam-container {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+    }
+    .steam-particle {
+      position: absolute; bottom: -100px;
+      background: radial-gradient(circle, var(--steam) 0%, transparent 70%);
+      border-radius: 50%; opacity: 0;
+      animation: rise 8s infinite ease-in;
+    }
+    @keyframes rise {
+      0% { transform: translateY(0) scale(1); opacity: 0; }
+      50% { transform: translateY(-40vh) scale(2); opacity: 0.4; }
+      100% { transform: translateY(-100vh) scale(3); opacity: 0; }
+    }
+
+    /* --- 404 TEXT --- */
+    .error-code {
+      font-family: 'Sniglet', cursive;
+      font-size: 8rem;
+      color: var(--sauce);
+      text-shadow: 0 0 20px rgba(255, 69, 0, 0.6);
+      position: relative;
+      z-index: 2;
+      line-height: 0.8;
+    }
+
+    /* --- SAD MOMO CSS ART --- */
+    .sad-momo {
+      width: 200px;
+      height: 180px;
+      background: var(--dough);
+      /* Momo Shape */
+      border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%;
+      position: relative;
+      margin: 30px auto;
+      box-shadow: 
+        inset -10px -10px 20px rgba(0,0,0,0.1),
+        0 0 30px rgba(255,255,255,0.1);
+      animation: shiver 3s infinite ease-in-out;
+      z-index: 2;
+    }
+    
+    /* Top twist of the momo */
+    .sad-momo::after {
+      content: '';
+      position: absolute;
+      top: -15px; left: 50%;
+      transform: translateX(-50%);
+      width: 40px; height: 30px;
+      background: var(--dough);
+      border-radius: 50% 50% 20% 20%;
+      box-shadow: inset -2px -2px 5px rgba(0,0,0,0.05);
+    }
+
+    /* Sad Eyes */
+    .eye {
+      position: absolute;
+      top: 60px;
+      width: 15px; height: 15px;
+      background: #333;
+      border-radius: 50%;
+    }
+    .eye.left { left: 50px; }
+    .eye.right { right: 50px; }
+
+    /* Tears Animation */
+    .tear {
+      position: absolute;
+      top: 70px;
+      width: 8px; height: 8px;
+      background: #00a8ff;
+      border-radius: 50%;
+      opacity: 0;
+    }
+    .tear.left { left: 53px; animation: cry 2s infinite 1s; }
+    .tear.right { right: 53px; animation: cry 2s infinite; }
+
+    /* Sad Mouth */
+    .mouth {
+      position: absolute;
+      bottom: 50px; left: 50%;
+      transform: translateX(-50%);
+      width: 40px; height: 20px;
+      border: 3px solid #333;
+      border-color: #333 transparent transparent transparent; /* Arcs upwards for sadness */
+      border-radius: 50%;
+    }
+
+    @keyframes shiver {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(2deg); }
+      75% { transform: rotate(-2deg); }
+    }
+    @keyframes cry {
+      0% { top: 70px; opacity: 1; }
+      100% { top: 120px; opacity: 0; }
+    }
+
+    /* --- TEXT CONTENT --- */
+    .message {
+      z-index: 2;
+      max-width: 500px;
+      padding: 0 20px;
+    }
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    p {
+      color: #bbb;
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+    }
+
+    /* --- BUTTON --- */
+    .home-btn {
+      display: inline-block;
+      background: var(--chutney);
+      color: white;
+      text-decoration: none;
+      padding: 15px 35px;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      box-shadow: 0 0 20px var(--chutney);
+      transition: all 0.3s;
+      z-index: 2;
+    }
+    .home-btn:hover {
+      background: var(--sauce);
+      transform: scale(1.1);
+      box-shadow: 0 0 40px var(--sauce);
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="steam-container" id="steamArea"></div>
+
+<div class="error-code">404</div>
+
+<div class="sad-momo">
+  <div class="eye left"></div>
+  <div class="eye right"></div>
+  <div class="tear left"></div>
+  <div class="tear right"></div>
+  <div class="mouth"></div>
+</div>
+
+<div class="message">
+  <h2>Empty Steamer Basket!</h2>
+  <p>Oops! Looks like this page got eaten by a hungry customer. It's completely vanished... just like a plate of hot momos.</p>
+  
+  <a href="index.html" class="home-btn">Take Me Back to the Food</a>
+</div>
+
+<script>
+  // Steam Generation (Consistent with main site)
+  window.addEventListener("load", () => {
+    const container = document.getElementById('steamArea');
+    for(let i=0; i<12; i++) {
+      let span = document.createElement('span');
+      span.className = 'steam-particle';
+      span.style.left = Math.random() * 100 + '%';
+      span.style.width = Math.random() * 100 + 50 + 'px';
+      span.style.height = span.style.width;
+      span.style.animationDelay = Math.random() * 5 + 's';
+      span.style.animationDuration = Math.random() * 5 + 5 + 's';
+      container.appendChild(span);
+    }
+  });
+</script>
+
+</body>
+</html>
